@@ -1,0 +1,66 @@
+{
+    "apps": [
+        {
+            "context": "",
+            "ensure": "present",
+            "id": 2882,
+            "targets": [
+              "sh1",
+              "shc1"
+            ],
+            "version": "1.0.0"
+        },
+        {
+            "context": "",
+            "ensure": "present",
+            "id": 2890,
+            "targets": [
+              "sh1"
+            ],
+            "version": "1.0.0"
+        },
+        {
+            "context": "",
+            "ensure": "present",
+            "id": 2200015,
+            "targets": [
+              "sh1"
+            ],
+            "version": "1.0.0"
+        }
+    ],
+    "maintenanceWindow": {
+        "ranges": [
+          {
+           "duration": "23h59m",
+          "startTime": "00:00"
+          }
+        ]
+    },
+    "inputsDataManagers": [
+      {
+          "count": 2,
+          "dnsAltNames": [
+              "idm"
+          ],
+          "instanceType": "r5a.2xlarge",
+          "name": "idm1",
+          "primary": true
+      }
+  ],
+    "featureFlags": {
+        "noah_indexer_single_asg": "true",
+        "prepare_for_noah_migration": "false" 
+    },
+    "features": {
+      "smartbus": false
+    },
+    "certs": {
+      "http": {
+          "provider": "Ravi"
+      },
+      "server": {
+          "provider": "Hey"
+      }
+  }
+}

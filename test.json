@@ -1,0 +1,374 @@
+{
+    "changeReason": "TO-123 Update",
+    "name": "devonenergy",
+    "spec": {
+        "accessRules": {
+            "apiWhitelist": [
+                "63.99.29.48/32",
+                "104.155.173.76/32",
+                "34.67.96.230/32",
+                "38.131.241.7/32"
+            ],
+            "customerOutboundRules": [
+                {
+                    "destinationRanges": [
+                        "0.0.0.0/0"
+                    ],
+                    "name": "5671",
+                    "port": 5671
+                },
+                {
+                    "destinationRanges": [
+                        "0.0.0.0/0"
+                    ],
+                    "name": "5672",
+                    "port": 5672
+                }
+            ]
+        },
+        "account": "std-lve-1",
+        "apps": [
+            {
+                "context": "",
+                "ensure": "present",
+                "id": 2200015,
+                "skipCompatibilityCheck": true,
+                "targets": [
+                    "indexer"
+                ],
+                "version": "6.0.0-3-0"
+            }
+        ],
+        "certType": "StackSpecific",
+        "certs": {
+            "http": {
+                "provider": "Digicert"
+            },
+            "inputs": {
+                "body": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/inputs/certificate_body",
+                "chain": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/inputs/certificate_chain",
+                "password": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/inputs/password",
+                "privateKey": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/inputs/private_key"
+            },
+            "saml": {
+                "provider": "VaultPKI"
+            },
+            "server": {
+                "provider": "Digicert"
+            }
+        },
+        "clusterMaster": {
+            "cmcFeatures": {
+                "activeArchiveLicense": 0,
+                "diskLicense": 750,
+                "purchasedStorageBlocks": 0,
+                "svcLicense": 0
+            },
+            "instanceType": "c5.2xlarge"
+        },
+        "customerType": "Customer",
+        "featureFlags": {
+            "indexer_autoscaling_enabled": true,
+            "indexer_single_asg_migrating": false,
+            "noah_indexer_single_asg": true,
+            "prepare_for_noah_migration": true
+        },
+        "features": {
+            "encryption": true,
+            "httpEventCollector": true,
+            "noah": true,
+            "smartbus": true
+        },
+        "indexerCluster": {
+            "count": 5,
+            "entitledCount": 5,
+            "instanceType": "i3en.2xlarge"
+        },
+        "inputsDataManagers": [
+            {
+                "count": 0,
+                "dnsAltNames": [
+                    "idm"
+                ],
+                "instanceType": "r5a.2xlarge",
+                "name": "idm1",
+                "primary": true
+            }
+        ],
+        "maintenanceWindow": {},
+        "network": "default",
+        "noah": {
+            "cell": "002"
+        },
+        "platformSettings": {
+            "ami_std": "cloudinfra-base-ubuntu-1804-*"
+        },
+        "premiumApps": {
+            "enterpriseSecurity": {
+                "targets": [
+                    "sh2"
+                ],
+                "version": "6.0.0-3"
+            },
+            "enterpriseSecurityPCICP": {},
+            "itsi": {},
+            "pci": {},
+            "premiumAppSettings": {},
+            "stream": {},
+            "vmware": {}
+        },
+        "region": "us-east-1",
+        "releaseInfo": {
+            "splunkVersion": "8.2.2203.3"
+        },
+        "searchHeads": [
+            {
+                "config": [
+                    {
+                        "app": "system",
+                        "conf": "authorize",
+                        "key": "importRoles",
+                        "stanza": "role_sc_admin",
+                        "value": "Phantom;power;tc_admin;tc_user;tokens_auth;user;splunk_app_soar;splunk_app_soar_dashboards"
+                    },
+                    {
+                        "app": "phantom",
+                        "conf": "phantom",
+                        "key": "value",
+                        "stanza": "verify_certs",
+                        "value": "1"
+                    }
+                ],
+                "count": 1,
+                "instanceType": "m5.8xlarge",
+                "name": "sh1",
+                "primary": true
+            },
+            {
+                "app": "es",
+                "count": 0,
+                "instanceType": "c5.9xlarge",
+                "name": "sh2"
+            }
+        ],
+        "secrets": {
+            "indexManagerPassword": "vault://cloud-sec/data/std/lve/stacks/devonenergy/index_manager/plaintext",
+            "internalAutomationPassword": "vault://cloud-sec/data/std/lve/stacks/devonenergy/internal_automation/plaintext",
+            "opsAdminPassword": "vault://cloud-sec/data/std/lve/stacks/devonenergy/ops_admin/plaintext",
+            "pass4SymmKey": "vault://cloud-sec/data/std/lve/stacks/devonenergy/p4sk/plaintext",
+            "replicationSSLPassword": "vault://cloud-sec/data/std/lve/stacks/devonenergy/ssl_repl/plaintext",
+            "shcPass4SymmKey": "vault://cloud-sec/data/std/lve/stacks/devonenergy/shc_p4sk/plaintext",
+            "splunkSecret": "vault://cloud-sec/data/std/lve/stacks/devonenergy/secret/plaintext",
+            "ssaiPass4SymmKey": "vault://cloud-sec/data/std/lve/stacks/devonenergy/ssaip4sk/plaintext"
+        },
+        "splunkUsers": [
+            {
+                "email": "ssadanala@splunk.com",
+                "expiry": "2020-07-08",
+                "fullName": "Sundeep Sadanala",
+                "name": "ssadanala",
+                "password": "vault://cloud-sec/data/std/lve/stacks/devonenergy/splunk_users/ssadanala/plaintext",
+                "targets": [
+                    "sh1",
+                    "sh2",
+                    "idm1"
+                ]
+            },
+            {
+                "email": "sgregori@splunk.com",
+                "expiry": "2022-06-09",
+                "fullName": "Sebastian Gregori",
+                "name": "sgregori",
+                "password": "",
+                "targets": [
+                    "sh1",
+                    "cluster_master"
+                ]
+            },
+            {
+                "email": "rvasaly@splunk.com",
+                "ensure": "present",
+                "expiry": "2021-01-08",
+                "fullName": "Robert Vasaly",
+                "name": "rvasaly",
+                "password": "",
+                "targets": [
+                    "idm1",
+                    "sh2",
+                    "sh1",
+                    "cluster_master"
+                ]
+            },
+            {
+                "email": "jwatts@splunk.com",
+                "ensure": "present",
+                "expiry": "2021-05-07",
+                "fullName": "James Watt",
+                "name": "jwatts",
+                "password": "",
+                "targets": [
+                    "idm1",
+                    "sh1",
+                    "cluster_master"
+                ]
+            }
+        ]
+    },
+    "reviewReason": "lgtm",
+    "createdAt": "2022-08-03T13:12:40.396019585Z",
+    "createdBy": "dhruvins@splunk.com",
+    "labels": {
+        "enterprise.cloud.splunk8s.io/account": "std-lve-1",
+        "enterprise.cloud.splunk8s.io/cloud": "aws",
+        "enterprise.cloud.splunk8s.io/import-stage": "finish",
+        "enterprise.cloud.splunk8s.io/network": "default",
+        "enterprise.cloud.splunk8s.io/region": "us-east-1",
+        "imported": "true",
+        "releasetrain.cloud.splunk8s.io/stack-group-name": "emerald-aug-w4-mon-us-east-1-canada"
+    },
+    "reviewStatus": "",
+    "reviewedBy": "rnandasana@splunk.com",
+    "state": "Approved",
+    "status": {
+        "certs": {
+            "http": {
+                "body": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/http/certificate_body",
+                "chain": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/http/certificate_chain",
+                "privateKey": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/http/private_key",
+                "provider": "Digicert",
+                "serial": "01:b6:2e:bf:a4:f8:64:de:e0:9b:11:c8:89:71:ec:17"
+            },
+            "inputs": {
+                "body": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/inputs/certificate_body",
+                "chain": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/inputs/certificate_chain",
+                "password": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/inputs/password",
+                "privateKey": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/inputs/private_key"
+            },
+            "saml": {
+                "body": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/saml/certificate_body",
+                "chain": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/saml/certificate_chain",
+                "password": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/saml/password",
+                "privateKey": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/saml/private_key",
+                "provider": "VaultPKI",
+                "rootCA": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/saml/root_ca",
+                "serial": "66:f6:0f:db:b5:a7:5a:d3:77:cf:9c:02:39:a0:3b:5c:da:9a:c8:78"
+            },
+            "server": {
+                "body": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/server/certificate_body",
+                "chain": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/server/certificate_chain",
+                "password": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/server/password",
+                "privateKey": "vault://cloud-sec/data/std/lve/stacks/devonenergy/certs/server/private_key",
+                "provider": "Digicert",
+                "serial": "02:dc:35:33:df:fa:97:7c:a6:28:8a:d6:50:db:e6:72"
+            }
+        },
+        "conditions": [
+            {
+                "lastTransitionTime": "2021-11-04T04:09:50Z",
+                "reason": "Finished",
+                "status": "True",
+                "type": "SoftwareConvergence"
+            },
+            {
+                "lastTransitionTime": "2022-06-27T04:10:29Z",
+                "message": "Apply complete! Resources: 2 added, 2 changed, 1 destroyed.",
+                "reason": "Complete",
+                "status": "True",
+                "type": "InfrastructureConvergence"
+            }
+        ],
+        "createdTime": {
+            "adminPassword": "2022-08-05T09:00:07Z",
+            "internalObservabilityPassword": "2022-05-10T17:38:08Z"
+        },
+        "historicalMaxIndexerClusterCount": 5,
+        "lastGeneration": 135,
+        "lastProvisionedJobType": "apply",
+        "lastProvisionedPlanSummary": "Apply complete! Resources: 2 added, 2 changed, 1 destroyed.",
+        "lastProvisionedStatus": "Complete",
+        "lastProvisionedTimestamp": "2022-06-27T04:10:29Z",
+        "lastProvisionedURL": "https://jenkins.lve.splunkcloud.systems/job/build-stack/417354/",
+        "lastPuppetJobRef": "splunk-cloud-operator/devonenergy-vbdvg",
+        "objectChecksums": {
+            "hieradata": {
+                "devonenergy/cluster_master": {
+                    "generated": "9e66fbf7f40a52ee5ad62acea484fc7e",
+                    "persisted": "ddb789d8cf104289dc2088646955d020"
+                },
+                "devonenergy/idm1": {
+                    "generated": "0fcf22110a8d338ada2a3391efec5d77",
+                    "persisted": "a25573879f3eb372298ac15df055454a"
+                },
+                "devonenergy/idx": {
+                    "generated": "65155c34ca73994d5ef2621cb9e8e2ff",
+                    "persisted": "02380892942be84337411b7f2297304d"
+                },
+                "devonenergy/sh1": {
+                    "generated": "06ee6c0accde5e9861538c58ad7bd7a1",
+                    "persisted": "b18925186d3ea0d4c515fd1279583e15"
+                },
+                "devonenergy/sh2": {
+                    "generated": "b287e7b687771bc6c66b31d736394f85",
+                    "persisted": "8d440d5e28bf28864a81ede76bf490d2"
+                },
+                "devonenergy/stack": {
+                    "generated": "bda171f8d074b458d919c4dcc184a823",
+                    "persisted": "73a7c64cac48ff6f1ce3e30e1321ad79"
+                }
+            },
+            "infrastructureDefinition": {
+                "generated": "c63ff188140355fbe68336c1c63a6905",
+                "persisted": "6f9dd2d03933141fe3a7e0b83fa3392b"
+            },
+            "releaseInfo": {
+                "persisted": "071401766f58f7c37a53d1496f80e1c2"
+            }
+        },
+        "provisioned": true,
+        "provisionerOutput": {
+            "account_id": "630172805352",
+            "bastion_for_access": "bastion.vpc-3803cc43.lve.splunkcloud.systems",
+            "cluster_master_eip": "3.212.157.156",
+            "docker_tag": "v0.0.92",
+            "indexers_eips": "[\"3.222.208.255\",\"3.215.113.100\",\"52.3.192.76\"]",
+            "indexers_inactive_eips": "[\"52.203.143.29\",\"18.215.28.28\"]",
+            "kms_key_id": "a1c25bb9-c419-43cf-8115-895cf94b0fad",
+            "last_executed": "2022-06-27T04:08:55Z",
+            "modules_branch": "v0.0.92",
+            "region": "us-east-1",
+            "s2_bucket_name": "s2-objects-default-vpc-3803cc43-us-east-1-lve",
+            "s3_splunk_apps_bucket_name": "splunkapps-default-vpc-3803cc43-us-east-1-lve",
+            "s3_splunk_stack_state_bucket_name": "state-default-vpc-3803cc43-us-east-1-lve",
+            "s3_utility_bucket_name": "utility-default-vpc-3803cc43-us-east-1-lve",
+            "search_head_ip_sh1": "3.234.131.200",
+            "shc_dns_endpoints": "{}",
+            "tf_branch": "0.0.370",
+            "userdata_branch": "latest"
+        },
+        "releaseInfo": {
+            "splunkVersion": "8.2.2203.3"
+        },
+        "secrets": {
+            "adminPassword": "vault://cloud-sec/data/std/lve/stacks/devonenergy/admin/plaintext",
+            "indexManagerPassword": "vault://cloud-sec/data/std/lve/stacks/devonenergy/index_manager/plaintext",
+            "internalAutomationPassword": "vault://cloud-sec/data/std/lve/stacks/devonenergy/internal_automation/plaintext",
+            "internalObservabilityPassword": "vault://cloud-sec/data/std/lve/stacks/devonenergy/internal_observability/plaintext",
+            "noahPass4SymmKey": "vault://cloud-sec/data/std/lve/stacks/devonenergy/noah_p4sk/plaintext",
+            "opsAdminPassword": "vault://cloud-sec/data/std/lve/stacks/devonenergy/ops_admin/plaintext",
+            "pass4SymmKey": "vault://cloud-sec/data/std/lve/stacks/devonenergy/p4sk/plaintext",
+            "replicationSSLPassword": "vault://cloud-sec/data/std/lve/stacks/devonenergy/ssl_repl/plaintext",
+            "shcPass4SymmKey": "vault://cloud-sec/data/std/lve/stacks/devonenergy/shc_p4sk/plaintext",
+            "splunkSecret": "vault://cloud-sec/data/std/lve/stacks/devonenergy/secret/plaintext",
+            "ssaiPass4SymmKey": "vault://cloud-sec/data/std/lve/stacks/devonenergy/ssaip4sk/plaintext"
+        },
+        "smartbusEnabled": true,
+        "splunkUserPasswords": {
+            "jwatts": "vault://cloud-sec/data/std/lve/stacks/devonenergy/splunk_users/jwatts/plaintext",
+            "rvasaly": "vault://cloud-sec/data/std/lve/stacks/devonenergy/splunk_users/rvasaly/plaintext",
+            "sfielder": "vault://cloud-sec/data/std/lve/stacks/devonenergy/splunk_users/sfielder/plaintext",
+            "sgregori": "vault://cloud-sec/data/std/lve/stacks/devonenergy/splunk_users/sgregori/plaintext",
+            "ssadanala": "vault://cloud-sec/data/std/lve/stacks/devonenergy/splunk_users/ssadanala/plaintext"
+        }
+    },
+    "version": 131
+}
