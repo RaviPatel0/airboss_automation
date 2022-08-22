@@ -53,20 +53,43 @@ def cert(sow,spec):
         spec["certs"][i]=sow[i]
          
          
-def sh_conf(sow,spec):
+def sh_conf(sow,spec,conf_stanza,unique_idenify):
     for i in range(len(sow)):
-        for j in range(len(spec)):
-            print((sow[i])["name"])
-            if (sow[i])['name']==(spec["inputsDataManagers"][j])['name']:
-                if (sow[i])["count"]:
-                    (spec["inputsDataManagers"][i])["count"]=(sow[i])["count"]
+        for j in range(len(spec[conf_stanza])):
+            if sow[i][unique_idenify]==spec[conf_stanza][j][unique_idenify]:
+                if 'count' in sow[i]:
+                    spec[conf_stanza][j]["count"]=sow[i]["count"]
+                if 'instanceType' in sow[i]:
+                    spec[conf_stanza][j]["instanceType"]=sow[i]["instanceType"]
+                if 'primary' in sow[i]:
+                    spec[conf_stanza][j]["primary"]=sow[i]["primary"]
+                if 'dnsAltNames' in sow[i]:
+                    spec[conf_stanza][j]["dnsAltNames"]=sow[i]["dnsAltNames"]     
+                if 'app' in sow[i]:
+                    spec[conf_stanza][j]["app"]=sow[i]["app"]
+                if 'diskCapacity' in sow[i]:
+                    spec[conf_stanza][j]["diskCapacity"]=sow[i]["diskCapacity"]   
+                if 'size' in sow[i]:
+                    spec[conf_stanza][j]["size"]=sow[i]["size"]     
+                if 'ensure' in sow[i]:
+                    spec[conf_stanza][j]["ensure"]=sow[i]["ensure"]
+                if 'version' in sow[i]:
+                    spec[conf_stanza][j]["version"]=sow[i]["version"]   
+                if 'context' in sow[i]:
+                    spec[conf_stanza][j]["context"]=sow[i]["context"]    
+                if 'targets' in sow[i]:
+                    spec[conf_stanza][j]["targets"]+= sow[i]["targets"]
+      
+            else:
+                spec[conf_stanza].append(sow[i])
 
-     
+
 for item_1 in data:
     for item_2 in final_spec_file:
         if item_1==item_2:
             if item_1=="apps":
-                apps(data[item_1],final_spec_file[item_2])
+                # apps(data[item_1],final_spec_file[item_2])
+                sh_conf(data["apps"],final_spec_file,"apps","id") 
             elif item_1=="maintenanceWindow":
                 maintenance(data["maintenanceWindow"],final_spec_file)
             elif item_1=="featureFlags":
@@ -84,7 +107,11 @@ for item_1 in data:
             elif item_1=="indexerCluster":
                 other_conf(data["indexerCluster"],final_spec_file,"indexerCluster")   
             elif item_1=="inputsDataManagers":
-                sh_conf(data["inputsDataManagers"],final_spec_file) 
+                sh_conf(data["inputsDataManagers"],final_spec_file,"inputsDataManagers","name") 
+            elif item_1=="searchHeads":
+                sh_conf(data["searchHeads"],final_spec_file,"searchHeads","name") 
+            elif item_1=="searchHeadCluster":
+                sh_conf(data["searchHeadCluster"],final_spec_file,"searchHeadCluster","name") 
 
 
                 
